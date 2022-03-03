@@ -37,7 +37,7 @@ impl S3Handler for Handler {
             ctx.multipart.is_some()
         } else if ctx.req.method() == Method::PUT {
             bool_try!(ctx.path.is_object());
-            ctx.query_strings.is_none()
+            true
         } else {
             false
         }
