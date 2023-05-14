@@ -15,6 +15,7 @@ rust-version = "1.59"
 default = []
 binary = ["anyhow", "dotenv", "structopt", "tokio", "tracing-subscriber"]
 
+
 [[bin]]
 name = "s3-server"
 required-features = ["binary"]
