@@ -14,10 +14,10 @@ rust-version = "1.59"
 [features]
 default = []
 binary = [
-    "anyhow", 
-    "dotenv", 
-    "structopt", 
-    "tokio", 
+    "anyhow",
+    "dotenv",
+    "structopt",
+    "tokio",
     "tracing-subscriber"
 ]
 
