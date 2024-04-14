@@ -33,7 +33,7 @@ pub fn parse_mime(res: &Response) -> Result<Mime> {
     }
 }
 
-pub fn generate_path(root: impl AsRef<Path>, path: S3Path) -> PathBuf {
+pub fn generate_path(root: impl AsRef<Path>, path: S3Path<'_>) -> PathBuf {
     match path {
         S3Path::Root => root.as_ref().to_owned(),
         S3Path::Bucket { bucket } => root.as_ref().join(bucket),
