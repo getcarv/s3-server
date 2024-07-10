@@ -99,12 +99,12 @@ mod tests {
                     last: Some(499)
                 }
             ));
-        }
+        };
         {
             let src = "bytes=0-499;";
             let result = Range::from_header_str(src);
             assert!(result.is_err());
-        }
+        };
         {
             let src = "bytes=9500-";
             let result = Range::from_header_str(src);
@@ -115,22 +115,22 @@ mod tests {
                     last: None
                 }
             ));
-        }
+        };
         {
             let src = "bytes=9500-0-";
             let result = Range::from_header_str(src);
             assert!(result.is_err());
-        }
+        };
         {
             let src = "bytes=-500";
             let result = Range::from_header_str(src);
             assert!(matches!(result.unwrap(), Range::Suffix { last: 500 }));
-        }
+        };
         {
             let src = "bytes=-500 ";
             let result = Range::from_header_str(src);
             assert!(result.is_err());
-        }
+        };
         {
             let src = "bytes=-1000000000000000000000000";
             let result = Range::from_header_str(src);

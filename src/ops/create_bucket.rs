@@ -41,7 +41,7 @@ impl S3Handler for Handler {
 async fn extract(ctx: &mut ReqContext<'_>) -> S3Result<CreateBucketRequest> {
     let bucket = ctx.unwrap_bucket_path();
 
-    let config: Option<self::xml::CreateBucketConfiguration> =
+    let config: Option<xml::CreateBucketConfiguration> =
         deserialize_xml_body(ctx.take_body())
             .await
             .map_err(|err| invalid_request!("Invalid xml format", err))?;
@@ -97,7 +97,7 @@ mod xml {
     #[derive(Debug, Deserialize)]
     /// `CreateBucketConfiguration`
     pub struct CreateBucketConfiguration {
-        /// LocationConstraint
+        /// `LocationConstraint`
         #[serde(rename = "LocationConstraint")]
         pub location_constraint: Option<String>,
     }

@@ -41,7 +41,7 @@ impl S3Handler for Handler {
 /// extract operation request
 pub async fn extract(ctx: &mut ReqContext<'_>) -> S3Result<DeleteObjectsRequest> {
     let bucket = ctx.unwrap_bucket_path();
-    let delete: self::xml::Delete = deserialize_xml_body(ctx.take_body())
+    let delete: xml::Delete = deserialize_xml_body(ctx.take_body())
         .await
         .map_err(|err| invalid_request!("Invalid xml format", err))?;
 
@@ -128,7 +128,7 @@ mod xml {
         /// Key name of the object to delete.
         #[serde(rename = "Key")]
         pub key: String,
-        /// VersionId for the specific version of the object to delete.
+        /// `VersionId` for the specific version of the object to delete.
         #[serde(rename = "VersionId")]
         pub version_id: Option<String>,
     }

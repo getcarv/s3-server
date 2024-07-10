@@ -81,7 +81,7 @@ impl ResponseExt for Response {
             })?;
 
             f(&mut w)?;
-        }
+        };
 
         *self.body_mut() = Body::from(body);
         self.set_mime(&mime::TEXT_XML)?;

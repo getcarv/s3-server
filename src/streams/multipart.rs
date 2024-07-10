@@ -43,7 +43,7 @@ impl Multipart {
         self.fields
             .iter()
             .rev()
-            .find_map(|&(ref n, ref v)| n.eq_ignore_ascii_case(name).then(|| v.as_str()))
+            .find_map(|(n, v)| n.eq_ignore_ascii_case(name).then(|| v.as_str()))
     }
 
     // /// assign from optional field
@@ -214,7 +214,7 @@ where
                 };
 
                 return Ok(Ok(Multipart {
-                    fields: fields.drain(..).collect(),
+                    fields: mem::take(fields),
                     file,
                 }));
             }
@@ -480,7 +480,7 @@ mod tests {
             let (_, ans) = parse_content_disposition(text).unwrap();
             assert_eq!(ans.name, "Signature");
             assert_eq!(ans.filename, None);
-        }
+        };
         {
             let text = b"form-data; name=\"file\"; filename=\"MyFilename.jpg\"";
             let (_, ans) = parse_content_disposition(text).unwrap();
@@ -496,7 +496,7 @@ mod tests {
             let mut lines = CrlfLines { slice: bytes };
             assert_eq!(lines.split_to(b"----"), Some(b"\r\n".as_ref()));
             assert_eq!(lines.slice, b"asd\r\nqwe");
-        }
+        };
         {
             let mut lines = CrlfLines { slice: bytes };
             assert_eq!(lines.split_to(b"xxx"), None);

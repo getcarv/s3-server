@@ -8,13 +8,6 @@ pub trait Also: Sized {
         f(&mut self);
         self
     }
-
-    /// try to mutate self by `f` and return `Result<Self, E>`
-    #[inline]
-    fn try_also<E>(mut self, f: impl FnOnce(&mut Self) -> Result<(), E>) -> Result<Self, E> {
-        f(&mut self)?;
-        Ok(self)
-    }
 }
 
 impl<T: Sized> Also for T {}
